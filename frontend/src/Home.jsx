@@ -6,9 +6,11 @@ function Home() {
 
     const createDocument = async () => {
         try {
-            const response = await axios.post('http://localhost:5000/api/docs', {
-                content: 'New document content', 
-            });
+
+          const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/docs`, {
+            content: '',
+        });
+        
 
             navigate(`/docs/${response.data._id}`);
         } catch (error) {
