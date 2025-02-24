@@ -4,7 +4,7 @@ import io from 'socket.io-client';
 import axios from 'axios';
 
 // Persistent socket connection
-const socket = io('http://localhost:5000');
+const socket = io('https://collaborative-text-editor-1wev.onrender.com');
 
 function Editor() {
   const { id } = useParams();
@@ -12,7 +12,7 @@ function Editor() {
 
   useEffect(() => {
     socket.emit('joinDocument', id);
-    axios.get(`http://localhost:5000/api/docs/${id}`).then((res) => setContent(res.data.content));
+    axios.get(`https://collaborative-text-editor-1wev.onrender.com/api/docs/${id}`).then((res) => setContent(res.data.content));
 
     socket.on('receiveChanges', (newContent) => setContent(newContent));
     return () => {
