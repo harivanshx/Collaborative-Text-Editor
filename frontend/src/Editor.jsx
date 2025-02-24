@@ -9,6 +9,16 @@ const socket = io(import.meta.env.VITE_BACKEND_URL);
 
 
 
+const copyToClipboard = () => {
+  const currentUrl = window.location.href;
+  navigator.clipboard.writeText(currentUrl)
+    .then(() => alert('URL copied to clipboard!'))
+    .catch((err) => console.error('Failed to copy URL:', err));
+};
+
+
+
+
 function Editor() {
   const { id } = useParams();
   const [content, setContent] = useState('');
@@ -43,6 +53,23 @@ function Editor() {
 }}>
   Text Editor
 </h1>
+<button 
+  onClick={copyToClipboard} 
+  style={{
+    display: 'block',
+    margin: '20px auto',
+    padding: '10px 20px',
+    fontSize: '1rem',
+    color: '#fff',
+    backgroundColor: '#007bff',
+    border: 'none',
+    borderRadius: '5px',
+    cursor: 'pointer',
+  }}
+>
+  Copy URL to Clipboard
+</button>
+
 
 <textarea 
   value={content} 
