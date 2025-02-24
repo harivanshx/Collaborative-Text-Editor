@@ -14,14 +14,14 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-      origin: 'http://localhost:5173',
+      origin: 'https://collaborative-text-editor-frontend.onrender.com',
       methods: ['GET', 'POST', 'PATCH'],
       credentials: true,
   },
 });
 
 app.use(cors({
-    origin: 'http://localhost:5173', 
+    origin: 'https://collaborative-text-editor-frontend.onrender.com', 
     methods: ['GET', 'POST', 'PATCH'],
     credentials: true,
 }));
