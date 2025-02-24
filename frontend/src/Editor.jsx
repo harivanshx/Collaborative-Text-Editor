@@ -3,8 +3,9 @@ import { useParams } from 'react-router-dom';
 import io from 'socket.io-client';
 import axios from 'axios';
 
-// Persistent socket connection
-const socket = io('http://localhost:5000');
+
+const socket = io(import.meta.env.VITE_BACKEND_URL);
+
 
 function Editor() {
   const { id } = useParams();
@@ -12,7 +13,9 @@ function Editor() {
 
   useEffect(() => {
     socket.emit('joinDocument', id);
-    axios.get(`http://localhost:5000/api/docs/${id}`).then((res) => setContent(res.data.content));
+    axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/docs/${id}`)
+    .then((res) => setContent(res.data.content));
+  
 
     socket.on('receiveChanges', (newContent) => setContent(newContent));
     return () => {
