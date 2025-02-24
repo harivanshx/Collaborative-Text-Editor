@@ -4,7 +4,9 @@ import io from 'socket.io-client';
 import axios from 'axios';
 
 
+
 const socket = io(import.meta.env.VITE_BACKEND_URL);
+
 
 
 function Editor() {
@@ -13,9 +15,11 @@ function Editor() {
 
   useEffect(() => {
     socket.emit('joinDocument', id);
+
     axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/docs/${id}`)
     .then((res) => setContent(res.data.content));
   
+
 
     socket.on('receiveChanges', (newContent) => setContent(newContent));
     return () => {

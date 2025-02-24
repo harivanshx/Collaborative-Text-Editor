@@ -6,6 +6,7 @@ function Home() {
 
     const createDocument = async () => {
         try {
+
           const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/docs`, {
             content: '',
         });

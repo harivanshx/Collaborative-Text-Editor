@@ -17,16 +17,22 @@ const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:5173';
 
 const io = socketIo(server, {
   cors: {
+
     origin: CLIENT_URL,
     methods: ['GET', 'POST', 'PATCH'],
     credentials: true,
+
+
   },
 });
 
 app.use(cors({
+
   origin: CLIENT_URL,
   methods: ['GET', 'POST', 'PATCH'],
   credentials: true,
+
+
 }));
 
 app.use(express.json());
