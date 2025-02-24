@@ -44,28 +44,29 @@ mongoose.connect(process.env.MONGO_URI, {
   .then(() => console.log('MongoDB connected'))
   .catch((err) => console.error('MongoDB connection error:', err));
 
-app.post('/api/docs', async (req, res) => {
-  try {
-    const { content = '' } = req.body;
-    const doc = new Document({ content });
-    await doc.save();
-    res.status(201).send(doc);
-  } catch (err) {
-    console.error('Error creating document:', err);
-    res.status(400).send({ error: 'Document creation failed', details: err.message });
-  }
+  app.post('/api/docs', async (req, res) => {
+    try {
+        const { content = '' } = req.body;
+        const doc = new Document({ content });
+        await doc.save();
+        res.status(201).send({ _id: doc._id, content: doc.content });
+    } catch (err) {
+        console.error('Error creating document:', err);
+        res.status(400).send({ error: 'Document creation failed', details: err.message });
+    }
 });
 
 app.get('/api/docs/:id', async (req, res) => {
-  try {
-    const doc = await Document.findById(req.params.id);
-    if (!doc) return res.status(404).send({ error: 'Document not found' });
-    res.send(doc);
-  } catch (err) {
-    console.error('Error fetching document:', err);
-    res.status(500).send({ error: 'Failed to fetch document', details: err.message });
-  }
+    try {
+        const doc = await Document.findById(req.params.id);
+        if (!doc) return res.status(404).send({ error: 'Document not found' });
+        res.send(doc);
+    } catch (err) {
+        console.error('Error fetching document:', err);
+        res.status(500).send({ error: 'Failed to fetch document', details: err.message });
+    }
 });
+
 
 io.on('connection', (socket) => {
   console.log('New client connected');
