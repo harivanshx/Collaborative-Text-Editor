@@ -6,7 +6,7 @@ function Home() {
 
     const createDocument = async () => {
         try {
-            const response = await axios.post('http://localhost:5000/api/docs', {
+            const response = await axios.post('https://collaborative-text-editor-1wev.onrender.com/api/docs', {
                 content: 'New document content', 
             });
 
